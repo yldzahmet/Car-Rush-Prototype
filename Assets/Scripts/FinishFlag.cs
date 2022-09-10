@@ -27,7 +27,6 @@ public class FinishFlag : MonoBehaviour
     {
         if(other.CompareTag("leftTruck"))
         {
-            Debug.LogWarning("triggered");
             PlayerController.speed -= 5;
             SuccesCompleted();
         }
@@ -38,6 +37,7 @@ public class FinishFlag : MonoBehaviour
         pressedStart = true;
         ScoreManager.updateScore = true;
         PlayerController.allowToGo = true;
+        StartScreenCanvas.SetActive(false);
     }
 
     public void SuccesCompleted()

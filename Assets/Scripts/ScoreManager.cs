@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    public Text scoreText;
     FinishFlag finishFlag;
     internal static bool updateScore = false;
     internal static int score = 400;
-    public Text scoreText;
 
     private void Start()
     {
@@ -27,8 +27,6 @@ public class ScoreManager : MonoBehaviour
             scoreText.text = string.Concat("Score: ", score.ToString());
 
         if(score <= 0 && updateScore)
-        {
             finishFlag.Failed();
-        }
     }
 }

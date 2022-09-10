@@ -83,7 +83,6 @@ public class Follower : MonoBehaviour
             isMoving = true;
             finalDest = 0;
             ShuffleCars.leftCarCount += 1;
-            Debug.Log("lcc: " + ShuffleCars.leftCarCount);
             SideName = Side.Left;
             animator.Play("Base Layer.SpinToLeft", 0, 0);
             return true;
@@ -187,13 +186,9 @@ public class Follower : MonoBehaviour
         if (FinishFlag.pressedStart)
         {
             if (isMoving)
-            {
                 MoveGameObjectOnPath();
-            }
             if (isParking)
-            {
                 GoToParkArea();
-            }
         }
     }
 }

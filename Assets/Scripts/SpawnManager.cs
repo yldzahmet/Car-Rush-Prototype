@@ -54,10 +54,6 @@ public class SpawnManager : MonoBehaviour
             }
             else
             {
-                if (shuffleCars.slidingSide == ShuffleCars.SlidingSide.Left) 
-                { 
-                    // cars count already increased
-                }
                 xMove = 4.5f;
                 car.GetComponent<Follower>().SideName = Follower.Side.Right;
                 car.transform.localPosition += new Vector3(xMove, rightCars * yOffset, 0); // put into true position
@@ -69,12 +65,12 @@ public class SpawnManager : MonoBehaviour
 
                 shuffleCars.carList.Insert(ShuffleCars.leftCarCount , carObj); // add to list
             }
-            scoreManager.EditScore(carNumber);
         }
+
+        scoreManager.EditScore(carNumber);
+        Debug.Log("There are " + shuffleCars.carList.Count + " cars");
         EditPathHeight(carNumber); // pass positive values for add cars
         ShuffleCars.leftCarCount = leftCars;
-        Debug.Log("lcc: " + ShuffleCars.leftCarCount);
-
     }
     /// <summary>
     /// Removes multiple objects from list
@@ -125,6 +121,7 @@ public class SpawnManager : MonoBehaviour
         }
 
         scoreManager.EditScore(-removedCars);
+        Debug.Log("There are " + shuffleCars.carList.Count + " cars");
         EditPathHeight(removedCars * -1);// pass negative value for remove cars
     }
 
@@ -140,6 +137,7 @@ public class SpawnManager : MonoBehaviour
             ShuffleCars.leftCarCount -= 1;
 
         EditPathHeight(-1);// pass negative value for remove cars
+        Debug.Log("There are " + shuffleCars.carList.Count + " cars");
         scoreManager.EditScore(-1);
     }
 
@@ -152,25 +150,16 @@ public class SpawnManager : MonoBehaviour
         for (int i = 0; i < shuffleCars.carList.Count; i++)
         {
             if ( i >= leftCarCount && i < leftCarCount + Mathf.Abs(carNumber) && carNumber > 0)
-            {
                 continue;
-            }
             else
             {
                 PathHandler pathHandler = shuffleCars.carList[i].transform.GetChild(1).gameObject.GetComponent<PathHandler>();
 
                 if (i < leftCarCount)
-                {
                     pathHandler.controlPoints[3].transform.position += offsetVector;
-                }
-
                 else
-                {
                     pathHandler.controlPoints[0].transform.position += offsetVector;
-                }
             }
         }
-        
     }
-
 }

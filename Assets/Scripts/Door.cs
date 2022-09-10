@@ -11,8 +11,9 @@ public class Door : MonoBehaviour
     public Color32 yellow;
     public Color32 red;
 
-    internal int evaluateNumber;
-    internal char signChar;
+    [SerializeField]
+    private int evaluateNumber;
+    private char signChar;
 
     enum ProcessType { divide, multiply, subtraction, addition }
     ProcessType equationType;
@@ -66,29 +67,28 @@ public class Door : MonoBehaviour
         string tag = other.tag;
         if (other.CompareTag("leftTruck") || other.CompareTag("rightTruck"))
         {
+            int number = evaluateNumber;
             switch (equationType)
             {
                 case ProcessType.divide:
                     if (tag == "leftTruck")
-                        evaluateNumber = lcc - lcc / evaluateNumber;
+                        number = lcc - lcc / evaluateNumber;
                     else
-                        evaluateNumber = rcc - rcc / evaluateNumber;
-                    Debug.Log(" evaluateNumber result : " + evaluateNumber);
-                    other.transform.root.GetComponent<SpawnManager>().RemoveCarFromList(tag, evaluateNumber);
+                        number = rcc - rcc / evaluateNumber;
+                    other.transform.root.GetComponent<SpawnManager>().RemoveCarFromList(tag, number);
                     break;
                 case ProcessType.multiply:
                     if (tag == "leftTruck")
-                        evaluateNumber = lcc * evaluateNumber - lcc;
+                        number = lcc * evaluateNumber - lcc;
                     else
-                        evaluateNumber = rcc * evaluateNumber - rcc;
-                    Debug.Log(" evaluateNumber result : " + evaluateNumber);
-                    other.transform.root.GetComponent<SpawnManager>().CreatePathWithCar(tag, evaluateNumber);
+                        number = rcc * evaluateNumber - rcc;
+                    other.transform.root.GetComponent<SpawnManager>().CreatePathWithCar(tag, number);
                     break;
                 case ProcessType.subtraction:
-                    other.transform.root.GetComponent<SpawnManager>().RemoveCarFromList(tag, evaluateNumber);
+                    other.transform.root.GetComponent<SpawnManager>().RemoveCarFromList(tag, number);
                     break;
                 case ProcessType.addition:
-                    other.transform.root.GetComponent<SpawnManager>().CreatePathWithCar(tag, evaluateNumber);
+                    other.transform.root.GetComponent<SpawnManager>().CreatePathWithCar(tag, number);
                     break;
                 default:
                     break;

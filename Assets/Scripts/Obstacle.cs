@@ -10,12 +10,11 @@ public class Obstacle : MonoBehaviour
         {
             Follower follower = other.GetComponent<Follower>();
             if (follower.isMoving)
-            {
                 follower.DestroySelf();
-            }
 
             int carIndex = other.transform.root.GetComponent<ShuffleCars>().carList.IndexOf(other.transform.parent.gameObject);
             int carNumber;
+
             Follower.Side side = other.GetComponent<Follower>().SideName;
 
             if (side == Follower.Side.Left)
